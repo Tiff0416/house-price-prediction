@@ -8,18 +8,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-# Load data
 df = pd.read_csv("data/train.csv")
 
-# Select features and target
 features = ['GrLivArea', 'OverallQual', 'YearBuilt', 'GarageCars']
 X = df[features]
 y = df['SalePrice']
 
-# Handle missing values
 X = X.fillna(X.mean())
 
-# Train/test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # ------------------------
