@@ -1,34 +1,39 @@
-# House Price Prediction Using Random Forest
+# House Price Prediction Using Tree-Based Models
 
 ## Introduction
 
-In this project, I aim to predict house sale prices using data from the Kaggle competition [House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques). Accurately predicting housing prices is a valuable task in real estate, mortgage lending, and urban planning. I use a Random Forest model to estimate prices based on a few core house attributes.
+In this project, I aim to predict house sale prices using data from the Kaggle competition [House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques). Accurately predicting housing prices is a valuable task in real estate, mortgage lending, and urban planning. I compare three modeling techniques—Linear Regression, Random Forest, and XGBoost—to evaluate their performance and suitability for this task.
 
 ## Data Source and Preparation
 
-Data was accessed through the Kaggle API and automatically downloaded using a custom Python function. The dataset includes 79 explanatory variables describing (almost) every aspect of residential homes in Ames, Iowa. For simplicity and model clarity, I selected four important features to begin with:
+Data was accessed through the Kaggle API and automatically downloaded using a custom Python function (`data_utils.py`). The dataset includes 79 explanatory variables describing nearly every aspect of residential homes in Ames, Iowa. For simplicity and model clarity, I selected four core features:
 
-- `GrLivArea`: Above ground living area (in square feet)
-- `OverallQual`: Overall material and finish quality
-- `YearBuilt`: Year the house was built
-- `GarageCars`: Number of cars the garage can hold
+- `GrLivArea`: Above ground living area (in square feet)  
+- `OverallQual`: Overall material and finish quality  
+- `YearBuilt`: Year the house was built  
+- `GarageCars`: Number of cars the garage can hold  
 
 Missing values were handled by mean imputation, and the dataset was split into training (80%) and testing (20%) sets using `train_test_split`.
 
-## Model and Evaluation
+## Model Training and Evaluation
 
-I trained a `RandomForestRegressor` with default hyperparameters. The model was evaluated using Root Mean Squared Error (RMSE) and R² Score.
+Three models were trained and evaluated:
 
-### Results:
+1. **Linear Regression**
+2. **Random Forest**
+3. **XGBoost**
 
-- **RMSE**: \$32,311.91  
-- **R² Score**: 0.8639
+All models were evaluated using Root Mean Squared Error (RMSE) and R² score on the testing set.
 
-These results indicate strong predictive performance, with the model explaining approximately 86% of the variance in house prices.
+### Model Results:
 
-### Feature Importance:
+| Model             | RMSE      | R² Score |
+|-------------------|-----------|----------|
+| Linear Regression | 42509.32  | 0.7644   |
+| Random Forest     | 32311.91  | 0.8639   |
+| XGBoost           | 32172.62  | 0.8651   |
 
-The Random Forest model identified the following feature importances:
+### Feature Importance (Random Forest):
 
 | Feature      | Importance |
 |--------------|------------|
@@ -37,21 +42,30 @@ The Random Forest model identified the following feature importances:
 | YearBuilt    | 10.2%      |
 | GarageCars   | 4.0%       |
 
-As expected, overall material quality and living area size were the most significant predictors of sale price.
-
-![Prediction vs Actual](images/pred_vs_actual.png)
-![Feature Importance](images/feature_importance.png)
-
 ## Discussion
 
-While the model achieved strong predictive performance with an R² score of 0.8639, there are still several aspects worth reflecting upon. The current model uses only four features—`OverallQual`, `GrLivArea`, `YearBuilt`, and `GarageCars`—which are indeed among the most influential variables. However, house prices are influenced by many additional factors, such as neighborhood, basement quality, exterior condition, and kitchen finish, which are not yet included in this version. Incorporating these features could further enhance model accuracy.
+While all three models demonstrate a reasonable ability to predict house prices, their performance varies significantly. Linear Regression, despite being a straightforward and interpretable model, underperforms relative to ensemble tree-based methods, likely due to its inability to capture non-linear relationships. Random Forest significantly improves accuracy by aggregating multiple decision trees, and XGBoost provides a slight performance edge over Random Forest through gradient boosting and regularization techniques.
 
-In addition, the Random Forest model was trained using default hyperparameters. While it performs well, model tuning using cross-validation and parameter search (e.g., GridSearchCV) may lead to better generalization and reduced overfitting. Another consideration is that tree-based models like Random Forest, while powerful, are less interpretable than linear models. In contexts where explanation is critical—such as financial decision-making or policy recommendations—model transparency might be as important as accuracy.
+The Random Forest model's feature importance reveals that material quality (`OverallQual`) and living area size (`GrLivArea`) are the most influential variables—findings that align with intuition and real-world housing market dynamics. Although only four features were used in this version, additional predictors such as neighborhood, basement finish, and kitchen quality could further improve model performance.
 
-Despite these limitations, the model provides valuable insights. The feature importance analysis confirms that housing quality and size are key drivers of price, aligning with real-world expectations. Overall, this version of the model strikes a balance between simplicity and performance, and serves as a solid foundation for future improvements.
+It’s worth noting that all models were trained using default parameters. Future improvements could include hyperparameter tuning (e.g., via GridSearchCV or Optuna) and feature engineering. Additionally, cross-validation would offer a more robust estimate of model generalizability.
+
+## Visualizations
+
+- **Random Forest: Actual vs Predicted**  
+  ![RF Predictions](images/rf_pred_vs_actual.png)
+
+- **Linear Regression: Actual vs Predicted**  
+  ![LR Predictions](images/lr_pred_vs_actual.png)
+
+- **XGBoost: Actual vs Predicted**  
+  ![XGB Predictions](images/xgb_pred_vs_actual.png)
+
+- **Random Forest: Feature Importance**  
+  ![Feature Importance](images/rf_feature_importance.png)
 
 ## Conclusion
 
-Using a Random Forest regressor with basic preprocessing, I was able to build a model with good predictive power on house prices. The workflow included API-based data fetching, cleaning, training, evaluation, and visualization. This project highlights the importance of feature selection and shows that even simple models can provide valuable insights.
+Among the three models tested, XGBoost produced the best overall performance in predicting house prices, closely followed by Random Forest. Linear Regression, while interpretable, showed lower accuracy. This comparison illustrates the benefits of tree-based ensemble methods for handling structured real estate data. The results also reinforce the importance of key housing features like overall quality and living area in determining market value.
 
-[My Github Link](https://github.com/Tiff0416/house-price-prediction)
+[GitHub Repository](https://github.com/Tiff0416/house-price-prediction)
