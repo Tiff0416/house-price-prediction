@@ -95,7 +95,11 @@ plt.savefig("images/xgb_pred_vs_actual.png")
 
 # Plot: Feature Importance (Random Forest)
 importances = pd.Series(rf_model.feature_importances_, index=features)
+print(importances) 
 importances.sort_values().plot(kind='barh')
+plt.xlabel("Feature Importance")
 plt.title("Random Forest: Feature Importance")
+plt.xlim(0, max(importances) * 1.1)  
 plt.tight_layout()
 plt.savefig("images/rf_feature_importance.png")
+

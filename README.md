@@ -58,4 +58,4 @@ All three models performed well, with XGBoost achieving the best accuracy. Rando
 Read the full analysis and discussion in `report.md`
 
 ## Author
-[Caroline Kuo] (https://github.com/Tiff0416/house-price-prediction)
+[Caroline Kuo](https://github.com/Tiff0416/house-price-prediction)

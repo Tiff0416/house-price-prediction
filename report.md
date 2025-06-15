@@ -54,15 +54,20 @@ It’s worth noting that all models were trained using default parameters. Futur
 
 - **Random Forest: Actual vs Predicted**  
   ![RF Predictions](images/rf_pred_vs_actual.png)
+  *Figure 1: Scatter plot comparing actual and predicted house prices using Random Forest. The closer the points are to the diagonal line, the better the prediction accuracy.*
 
 - **Linear Regression: Actual vs Predicted**  
   ![LR Predictions](images/lr_pred_vs_actual.png)
+  *Figure 2: Linear Regression predictions show a reasonable trend but with more variance compared to tree-based models.*
 
 - **XGBoost: Actual vs Predicted**  
   ![XGB Predictions](images/xgb_pred_vs_actual.png)
+  *Figure 3: XGBoost yields the best fit among the three, showing tight clustering along the ideal prediction line.*
+
 
 - **Random Forest: Feature Importance**  
   ![Feature Importance](images/rf_feature_importance.png)
+  *Figure 4: Feature importance plot showing which input variables contribute most to Random Forest predictions.*
 
 ## Conclusion
 
