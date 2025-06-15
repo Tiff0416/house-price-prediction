@@ -1,4 +1,4 @@
-# House Price Prediction Using Tree-Based Models
+# House Price Prediction: Comparing Tree-Based Models with Linear Regression
 
 ## Introduction
 
