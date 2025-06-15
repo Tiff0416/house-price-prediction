@@ -54,10 +54,4 @@ Despite these limitations, the model provides valuable insights. The feature imp
 
 Using a Random Forest regressor with basic preprocessing, I was able to build a model with good predictive power on house prices. The workflow included API-based data fetching, cleaning, training, evaluation, and visualization. This project highlights the importance of feature selection and shows that even simple models can provide valuable insights.
 
-## How to Run
-
-1. Place your Kaggle API key in `~/.kaggle/kaggle.json`
-2. Run `data_utils.py` to fetch and unzip the data
-3. Run `model.py` to train the model and generate outputs in `/images`
-
 [My Github Link](https://github.com/Tiff0416/house-price-prediction)
