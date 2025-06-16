@@ -73,4 +73,15 @@ It’s worth noting that all models were trained using default parameters. Futur
 
 Among the three models tested, XGBoost produced the best overall performance in predicting house prices, closely followed by Random Forest. Linear Regression, while interpretable, showed lower accuracy. This comparison illustrates the benefits of tree-based ensemble methods for handling structured real estate data. The results also reinforce the importance of key housing features like overall quality and living area in determining market value.
 
+According to our evaluation, the XGBoost model achieved an R² score of 0.8651 on the hold-out test set, surpassing Mitch’s recommended minimum threshold of 0.75. Additionally, the Kaggle submission using the same model received a log(RMSE) score of 0.17869, indicating reasonably strong predictive performance on the competition’s test data.
+
+  ![Submission Outcome](images/Submission_Outcome.png)
+
 [GitHub Repository](https://github.com/Tiff0416/house-price-prediction)
+
+## Appendix - Kaggle Submission
+
+To align with the Kaggle competition's requirements, I used the final XGBoost model to generate predictions on the test set (`test.csv`) provided by Kaggle. The results were saved into a `submission.csv` file in the required format:
+
+- **Columns**: `Id`, `SalePrice`
+- **Format**: `SalePrice` contains raw predicted values, and Kaggle applies `log1p()` transformation internally for RMSE scoring.

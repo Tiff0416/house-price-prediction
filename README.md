@@ -45,6 +45,16 @@ python model.py
 pip install pandas numpy matplotlib scikit-learn xgboost kaggle
 ```
 
+6. **Generate Kaggle submission file:**
+After running `model.py`, a `submission.csv` file will be generated in the project root. This file contains predicted house prices for the test set using the trained XGBoost model.
+The format follows Kaggle’s requirements:
+
+Id,SalePrice
+1461,169000.10
+1462,187724.12
+...
+
+
 ## Model Comparison
 | Model             | RMSE      | R² Score |
 | ----------------- | --------- | -------- |

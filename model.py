@@ -26,10 +26,12 @@ lr_model.fit(X_train, y_train)
 lr_pred = lr_model.predict(X_test)
 lr_rmse = np.sqrt(mean_squared_error(y_test, lr_pred))
 lr_r2 = r2_score(y_test, lr_pred)
+lr_log_rmse = np.sqrt(mean_squared_error(np.log1p(y_test), np.log1p(lr_pred)))
 
 print("=== Linear Regression ===")
 print(f"RMSE: {lr_rmse:.2f}")
 print(f"R^2: {lr_r2:.4f}")
+print(f"log(RMSE): {lr_log_rmse:.4f}")
 
 # ------------------------
 # Model 2: Random Forest
@@ -39,10 +41,12 @@ rf_model.fit(X_train, y_train)
 rf_pred = rf_model.predict(X_test)
 rf_rmse = np.sqrt(mean_squared_error(y_test, rf_pred))
 rf_r2 = r2_score(y_test, rf_pred)
+rf_log_rmse = np.sqrt(mean_squared_error(np.log1p(y_test), np.log1p(rf_pred)))
 
 print("\n=== Random Forest ===")
 print(f"RMSE: {rf_rmse:.2f}")
 print(f"R^2: {rf_r2:.4f}")
+print(f"log(RMSE): {rf_log_rmse:.4f}")
 
 # ------------------------
 # Model 3: XGBoost
@@ -52,10 +56,12 @@ xgb_model.fit(X_train, y_train)
 xgb_pred = xgb_model.predict(X_test)
 xgb_rmse = np.sqrt(mean_squared_error(y_test, xgb_pred))
 xgb_r2 = r2_score(y_test, xgb_pred)
+xgb_log_rmse = np.sqrt(mean_squared_error(np.log1p(y_test), np.log1p(xgb_pred)))
 
 print("\n=== XGBoost ===")
 print(f"RMSE: {xgb_rmse:.2f}")
 print(f"R^2: {xgb_r2:.4f}")
+print(f"log(RMSE): {xgb_log_rmse:.4f}")
 
 # ------------------------
 # Save output images
@@ -99,3 +105,19 @@ plt.xlim(0, max(importances) * 1.1)
 plt.tight_layout()
 plt.savefig("images/rf_feature_importance.png")
 
+# ------------------------
+# Generate Kaggle Submission File using XGBoost
+# ------------------------
+test_df = pd.read_csv("data/test.csv")
+test_X = test_df[features].copy()
+test_X = test_X.fillna(X.mean()) 
+
+test_pred = xgb_model.predict(test_X)
+
+submission = pd.DataFrame({
+    "Id": test_df["Id"],
+    "SalePrice": test_pred
+})
+
+submission.to_csv("submission.csv", index=False)
+print("\n Kaggle submission file saved as submission.csv.")
